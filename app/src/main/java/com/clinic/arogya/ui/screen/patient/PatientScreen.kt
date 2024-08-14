@@ -4,6 +4,7 @@ package com.clinic.arogya.ui.screen.patient
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Delete
@@ -14,6 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.input.ImeAction
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 @Composable
 fun PatientScreen(
@@ -25,7 +30,8 @@ fun PatientScreen(
                 isValidAge(state.age) &&
                 state.sex.isNotBlank() &&
                 isValidPhoneNo(state.phoneNo) &&
-                state.address.isNotBlank()
+                state.address.isNotBlank() &&
+                isValidDate(state.date)
     )
 
     Scaffold(
@@ -140,7 +146,6 @@ fun PatientScreen(
                 if (!isValidPhoneNo(state.phoneNo)) {
                     Text("Phone Number must contain only digits", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
                 }
-
             }
 
             // Address
@@ -160,6 +165,25 @@ fun PatientScreen(
                 }
             }
 
+            // Date of Visit
+            item {
+                OutlinedTextField(
+                    value = state.date ?: "",
+                    onValueChange = {
+                        onEvent(PatientEvent.DateChange(it))
+                    },
+                    label = { Text("Date of Visit (dd/MM/yyyy)") },
+                    isError = !isValidDate(state.date),
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        imeAction = ImeAction.Done
+                    )
+                )
+                if (!isValidDate(state.date)) {
+                    Text("Date must be in format dd/MM/yyyy", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
+                }
+            }
+
             item {
                 Text(
                     text = "Medical Information",
@@ -176,9 +200,8 @@ fun PatientScreen(
                         onEvent(PatientEvent.SymptomsChange(it))
                     },
                     label = { Text("Symptoms") },
-                    modifier = Modifier.fillMaxWidth(),
-
-                    )
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
             // Diagnosis
@@ -189,9 +212,8 @@ fun PatientScreen(
                         onEvent(PatientEvent.DiagnosisChange(it))
                     },
                     label = { Text("Diagnosis") },
-                    modifier = Modifier.fillMaxWidth(),
-
-                    )
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
             // Treatment
@@ -202,9 +224,8 @@ fun PatientScreen(
                         onEvent(PatientEvent.TreatmentChange(it))
                     },
                     label = { Text("Treatment") },
-                    modifier = Modifier.fillMaxWidth(),
-
-                    )
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
             // Medicine
@@ -215,9 +236,8 @@ fun PatientScreen(
                         onEvent(PatientEvent.MedicineChange(it))
                     },
                     label = { Text("Medicine") },
-                    modifier = Modifier.fillMaxWidth(),
-
-                    )
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
             item {
@@ -242,10 +262,20 @@ fun PatientScreen(
     }
 }
 
+fun isValidDate(date: String?): Boolean {
+    return try {
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        LocalDate.parse(date, formatter)
+        true
+    } catch (e: DateTimeParseException) {
+        false
+    }
+}
+
 fun isValidAge(age: String): Boolean {
     return age.toIntOrNull() != null && age.toInt() > 0
 }
 
 fun isValidPhoneNo(phoneNo: String): Boolean {
-    return phoneNo.all { it.isDigit() } && phoneNo.length >= 10 // Example: Phone number should be at least 10 digits
+    return phoneNo.all { it.isDigit() } && phoneNo.length >= 10 //Phone number should be at least 10 digits
 }

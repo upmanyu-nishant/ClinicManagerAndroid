@@ -11,5 +11,7 @@ data class PatientState(
     val diagnosis: String="",
     val treatment: String="",
     val medicine: String="",
+    val date: String =""
+
 
 )

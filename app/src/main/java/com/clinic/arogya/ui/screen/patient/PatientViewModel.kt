@@ -37,19 +37,20 @@ class PatientViewModel @Inject constructor(
         savedStateHandle.get<String>("id")?.let {
             val id = it.toInt()
             viewModelScope.launch {
-                repository.getPatientById(id)?.let { note ->
+                repository.getPatientById(id)?.let { patient ->
                     _state.update { screenState ->
                         screenState.copy(
-                            id = note.id,
-                            name = note.name,
-                            age = note.age,
-                            sex = note.sex,
-                            phoneNo = note.phoneNo,
-                            address = note.address,
-                            symptoms = note.symptoms,
-                            diagnosis = note.diagnosis,
-                            treatment = note.treatment,
-                            medicine = note.medicine
+                            id = patient.id,
+                            name = patient.name,
+                            age = patient.age,
+                            sex = patient.sex,
+                            phoneNo = patient.phoneNo,
+                            address = patient.address,
+                            symptoms = patient.symptoms,
+                            diagnosis = patient.diagnosis,
+                            treatment = patient.treatment,
+                            medicine = patient.medicine,
+                            date = patient.date
                         )
                     }
                 }
@@ -130,6 +131,13 @@ class PatientViewModel @Inject constructor(
                     )
                 }
             }
+            is PatientEvent.DateChange -> {
+                _state.update {
+                    it.copy(
+                        date = event.value
+                    )
+                }
+            }
 
 
 
@@ -150,6 +158,7 @@ class PatientViewModel @Inject constructor(
                         diagnosis = state.diagnosis,
                         treatment = state.treatment,
                         medicine = state.medicine,
+                        date = state.date,
 
 
                         )
@@ -176,7 +185,7 @@ class PatientViewModel @Inject constructor(
                         diagnosis = state.diagnosis,
                         treatment = state.treatment,
                         medicine = state.medicine,
-
+                        date = state.date
                         )
                     repository.deletePatient(patient)
                 }

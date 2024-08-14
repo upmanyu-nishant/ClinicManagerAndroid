@@ -106,9 +106,6 @@ fun PatientListScreen(
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Search
                 ),
-                keyboardActions = KeyboardActions(
-                    onSearch = { /* Handle search action if needed */ }
-                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)

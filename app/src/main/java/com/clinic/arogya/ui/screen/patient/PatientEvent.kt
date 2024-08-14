@@ -10,6 +10,8 @@ sealed interface PatientEvent {
     data class DiagnosisChange(val value: String): PatientEvent
     data class TreatmentChange(val value: String): PatientEvent
     data class MedicineChange(val value: String): PatientEvent
+    data class DateChange(val value: String): PatientEvent
+
     object Save : PatientEvent
     object NavigateBack : PatientEvent
     object DeletePatient : PatientEvent

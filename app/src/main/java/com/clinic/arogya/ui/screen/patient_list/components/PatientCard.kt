@@ -83,6 +83,13 @@ fun PatientCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
+                Text(
+                    text = "Date of Visit: ${patient.date}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
             }
         }
     }

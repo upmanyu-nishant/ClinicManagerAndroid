@@ -33,7 +33,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable(route = Route.patientList) {
                         val viewModel = hiltViewModel<PatientListViewModel>()
-                        val patientList by viewModel.patientList.collectAsStateWithLifecycle()
 
                         PatientListScreen(
                             viewModel = viewModel,

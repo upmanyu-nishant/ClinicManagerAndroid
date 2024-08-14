@@ -6,24 +6,27 @@ import com.clinic.arogya.domain.model.Patient
 fun PatientEntity.asExternalModel(): Patient = Patient(
     id,
     name,
+    age,
     sex,
-     phoneNo,
-     age,
+    phoneNo,
     address,
     symptoms,
     diagnosis,
     treatment,
-    medicine
+    medicine,
+    date
 )
 
 fun Patient.toEntity(): PatientEntity = PatientEntity(
-    id, name,
+    id,
+    name,
+    age,
     sex,
     phoneNo,
-    age,
     address,
     symptoms,
     diagnosis,
     treatment,
-    medicine
+    medicine,
+    date
 )

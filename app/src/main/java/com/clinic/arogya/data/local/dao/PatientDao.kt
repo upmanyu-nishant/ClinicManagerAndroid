@@ -16,10 +16,7 @@ interface PatientDao {
     fun getAllPatient(): Flow<List<PatientEntity>>
 
     @Query(
-        """
-        SELECT * FROM PatientEntity
-        WHERE id = :id
-    """
+        " SELECT * FROM PatientEntity WHERE id = :id"
     )
     suspend fun getPatientById(id: Int): PatientEntity?
 
