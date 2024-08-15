@@ -23,7 +23,7 @@ object AppModule {
             context,
             PatientDatabase::class.java,
             PatientDatabase.name
-        ).fallbackToDestructiveMigration()
+        ).fallbackToDestructiveMigration ()
             .build()
 
     @Provides

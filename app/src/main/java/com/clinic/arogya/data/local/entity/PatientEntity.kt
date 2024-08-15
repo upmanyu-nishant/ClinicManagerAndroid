@@ -16,6 +16,6 @@ data class PatientEntity(
     val diagnosis: String,
     val treatment: String,
     val medicine: String,
-    val date: String // Add this line
+    val date: String
 
 )

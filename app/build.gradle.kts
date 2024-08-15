@@ -70,11 +70,13 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     // Lifecycle
+    val lifecycleVersion = "2.6.0"
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     // Room
+    val roomVersion = "2.5.0"
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
@@ -86,5 +88,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-   implementation(libs.androidx.material3)
+    implementation(libs.androidx.material3)
+
 }

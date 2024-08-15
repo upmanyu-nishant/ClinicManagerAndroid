@@ -6,7 +6,7 @@ import com.clinic.arogya.data.local.dao.PatientDao
 import com.clinic.arogya.data.local.entity.PatientEntity
 
 @Database(
-    version = 2,
+    version = 3,
     entities = [PatientEntity::class]
 )
 abstract class PatientDatabase: RoomDatabase() {
